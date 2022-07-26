@@ -1,5 +1,5 @@
-```
-# basic setting
+```javascript
+# Default.
 $ yarn create react-app pro_trouble_shooting
 $ yarn add redux react-redux
 $ yarn add react-router-dom@5.3.0
@@ -12,11 +12,15 @@ $ yarn add @fortawesome/free-solid-svg-icons
 $ yarn add @fortawesome/react-fontawesome
 
 
-# mock api
+# Start!
+$ yarn start
 
+
+# mock api.
 $ yarn init -y
 $ yarn add json-server
 $ yarn json-server --watch db.json --port 5001
+
 
 
 ```
