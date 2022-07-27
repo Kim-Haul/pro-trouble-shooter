@@ -7,7 +7,7 @@ import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
 
 const Posting = (props) => {
   const accessToken = getCookie();
-  console.log(accessToken);
+  // console.log(accessToken);
 
   // 게시글 작성
   const axiosAdd = async (title, contents, Selected) => {

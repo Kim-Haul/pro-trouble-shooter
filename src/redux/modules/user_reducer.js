@@ -32,8 +32,10 @@ export const loginFB = (body) => {
       dispatch(loadUser(res.headers.authorization));
       const token = res.headers.authorization;
       setCookie(token);
-      window.alert("로그인에 성공했습니다!");
       window.location.reload();
+      window.alert(
+        "로그인에 성공했습니다. 확인을 누르면 서비스 이용이 가능합니다."
+      );
     } catch (err) {
       window.alert("로그인에 실패했습니다!");
     }

@@ -8,14 +8,21 @@ import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import jwtDecode from "jwt-decode";
 
 const Posting = (props) => {
   const history = useHistory();
   const params = useParams();
   const accessToken = getCookie();
 
+  let decoded = "";
+  if (accessToken) {
+    decoded = jwtDecode(accessToken);
+  }
+
   // 게시글 목록, 댓글 불러오기
   const [list, setList] = useState({});
+  const [is_load, setLoad] = useState(false);
   const axiosLoad = async () => {
     try {
       const res = await axios.get(
@@ -24,6 +31,7 @@ const Posting = (props) => {
       // const res = await axios.get(`http://localhost:5001/posts/${params.idx}`);
 
       setList(res.data);
+      setLoad(true);
     } catch (err) {
       console.log("게시글 세부 내용을 불러오는데 에러");
     }
@@ -38,6 +46,8 @@ const Posting = (props) => {
         },
       });
       // await axios.delete(`http://localhost:5001/posts/${params.idx}`);
+      history.push("/");
+      window.location.reload();
     } catch (err) {
       console.log(err);
       console.log("게시글 삭제하는데 에러");
@@ -156,18 +166,22 @@ const Posting = (props) => {
   };
 
   //문제 해결 여부
-  const [solved, setSolved] = useState(false);
+  // const [solved, setSolved] = useState(false);
   const onChangeSolved = async () => {
-    setSolved(true);
+    // setSolved(true);
     let data = {
       solved: true,
     };
     try {
-      await axios.put(`http://54.180.94.133/api/posts/${params.idx}`, data, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      await axios.put(
+        `http://54.180.94.133/api/posts/${params.idx}/comments`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       // await axios.put(`http://localhost:5001/posts/${params.idx}`, data);
     } catch (err) {
       console.log("문제해결 체크 오류!");
@@ -187,129 +201,191 @@ const Posting = (props) => {
   return (
     <PostingContainer>
       <PostingBox>
-        <ContentTitle> {list.title}</ContentTitle>
-        <Line />
-        <ContentNav>
-          <div
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            {list.nickname}
-          </div>
-          <div
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            |
-          </div>
-          <div
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            {list.category}
-          </div>
-          <div
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            |
-          </div>
-          {list.solved == true ? <div>해결</div> : <div>미해결</div>}
-        </ContentNav>
+        {is_load ? (
+          <>
+            <ContentTitle> {list.title}</ContentTitle>
+            <Line />
+            <ContentNav>
+              <div
+                style={{
+                  marginRight: "10px",
+                }}
+              >
+                {list.nickname}
+              </div>
+              <div
+                style={{
+                  marginRight: "10px",
+                }}
+              >
+                |
+              </div>
+              <div
+                style={{
+                  marginRight: "10px",
+                }}
+              >
+                {list.category}
+              </div>
+              <div
+                style={{
+                  marginRight: "10px",
+                }}
+              >
+                |
+              </div>
+              {list.solved == true ? <div>해결</div> : <div>미해결</div>}
+            </ContentNav>
 
-        <Line />
-        <ContentDesc> {list.content}</ContentDesc>
+            <Line />
+            <ContentDesc> {list.content}</ContentDesc>
 
-        {login ? (
-          <div>
-            <button
-              type="button"
-              className="btn btn-success"
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "140px",
-                width: "100px",
-              }}
-              onClick={() => {
-                history.push(`/detailupdate/${params.idx}`);
-              }}
-            >
-              수정
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "30px",
-                width: "100px",
-              }}
-              onClick={() => {
-                axiosDelete();
-                // history.push("/");
-              }}
-            >
-              삭제
-            </button>
-          </div>
+            {decoded.NICK_NAME == list.nickname ? (
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "140px",
+                    width: "100px",
+                  }}
+                  onClick={() => {
+                    history.push(`/detailupdate/${params.idx}`);
+                  }}
+                >
+                  수정
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "30px",
+                    width: "100px",
+                  }}
+                  onClick={() => {
+                    axiosDelete();
+                    // history.push("/");
+                  }}
+                >
+                  삭제
+                </button>
+              </div>
+            ) : null}
+          </>
         ) : null}
       </PostingBox>
 
-      <button
-        type="button"
-        className="btn btn-info"
-        style={{
-          marginTop: "20px",
-          height: "60px",
-          width: "500px",
-          fontSize: "20px",
-        }}
-        onClick={() => {
-          onChangeSolved();
-          window.location.reload();
-        }}
-      >
-        If you solved problem, click this btn
-      </button>
+      {decoded.NICK_NAME == list.nickname ? (
+        <>
+          {list.solved == false ? (
+            <>
+              <button
+                type="button"
+                className="btn btn-info"
+                style={{
+                  marginTop: "20px",
+                  height: "60px",
+                  width: "500px",
+                  fontSize: "20px",
+                }}
+                onClick={() => {
+                  onChangeSolved();
+                  window.location.reload();
+                }}
+              >
+                If you solved problem, click this btn
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="btn btn-danger"
+                style={{
+                  marginTop: "20px",
+                  height: "60px",
+                  width: "500px",
+                  fontSize: "20px",
+                }}
+              >
+                Already solved this problem !
+              </button>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          {list.solved == true ? (
+            <>
+              <>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  style={{
+                    marginTop: "20px",
+                    height: "60px",
+                    width: "500px",
+                    fontSize: "20px",
+                  }}
+                >
+                  Already solved this problem !
+                </button>
+              </>
+            </>
+          ) : null}
+        </>
+      )}
+
       {/* COMMENTBOX */}
 
       <CommentBox>
         <CommentPost>
-          <Textarea
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            placeholder="Comment"
-            rows="4"
-            ref={contents}
-          ></Textarea>
-          <button
-            type="button"
-            className="btn btn-warning"
-            style={{
-              position: "absolute",
-              bottom: "20px",
-              right: "55px",
-              width: "100px",
-            }}
-            onClick={() => {
-              if (contents.current.value != "") {
-                axiosPostComment(contents.current.value);
-                contents.current.value = "";
-                window.alert("댓글이 작성되었습니다 !");
-                window.location.reload();
-              } else {
-                window.alert("입력하지 않은 항목이 있습니다.");
-              }
-            }}
-          >
-            댓글작성
-          </button>
+          {login ? (
+            <>
+              <Textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                placeholder="Comment"
+                rows="4"
+                ref={contents}
+              ></Textarea>
+              <button
+                type="button"
+                className="btn btn-warning"
+                style={{
+                  position: "absolute",
+                  bottom: "20px",
+                  right: "55px",
+                  width: "100px",
+                }}
+                onClick={() => {
+                  if (contents.current.value != "") {
+                    axiosPostComment(contents.current.value);
+                    contents.current.value = "";
+                    // window.alert("댓글이 작성되었습니다 !");
+                    window.location.reload();
+                  } else {
+                    window.alert("입력하지 않은 항목이 있습니다.");
+                  }
+                }}
+              >
+                댓글작성
+              </button>
+            </>
+          ) : (
+            <h4
+              style={{
+                textAlign: "center",
+                marginTop: "80px",
+              }}
+            >
+              댓글기능은 로그인 후 이용해주세요.
+            </h4>
+          )}
         </CommentPost>
         <CommentList>
           {list.comments &&
@@ -322,12 +398,13 @@ const Posting = (props) => {
                         <div
                           style={{
                             marginBottom: "5px",
+                            fontWeight: "700",
                           }}
                         >
                           {v.nickname}
                         </div>
                         <div>{v.content}</div>
-                        {login ? (
+                        {decoded.NICK_NAME == v.nickname ? (
                           <CommnetFont>
                             <FontAwesomeIcon
                               icon={faPenToSquare}
@@ -347,7 +424,7 @@ const Posting = (props) => {
                               }}
                               onClick={() => {
                                 axiosCommentDelete(i);
-                                window.alert("댓글이 삭제되었습니다 !");
+                                // window.alert("댓글이 삭제되었습니다 !");
                                 window.location.reload();
                               }}
                             />
@@ -382,7 +459,7 @@ const Posting = (props) => {
                             }}
                             onClick={() => {
                               axiosUpdateComment(contentsUpdate, i);
-                              window.alert("댓글이 수정되었습니다 !");
+                              // window.alert("댓글이 수정되었습니다 !");
                               window.location.reload();
                             }}
                           >
@@ -410,12 +487,13 @@ const Posting = (props) => {
                       <div
                         style={{
                           marginBottom: "5px",
+                          fontWeight: "700",
                         }}
                       >
                         {v.nickname}
                       </div>
                       <div>{v.content}</div>
-                      {login ? (
+                      {decoded.NICK_NAME == v.nickname ? (
                         <CommnetFont>
                           <FontAwesomeIcon
                             icon={faPenToSquare}
@@ -435,7 +513,7 @@ const Posting = (props) => {
                             }}
                             onClick={() => {
                               axiosCommentDelete(i);
-                              window.alert("댓글이 삭제되었습니다 !");
+                              // window.alert("댓글이 삭제되었습니다 !");
                               window.location.reload();
                             }}
                           />

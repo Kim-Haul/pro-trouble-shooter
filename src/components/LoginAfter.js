@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { useHistory } from "react-router-dom";
 
 const LoginBefore = (props) => {
+  const history = useHistory();
   return (
     <NavButton>
       <ButtonU
         onClick={() => {
-          deleteCookie();
+          deleteCookie("Authorization");
         }}
       >
         Log-out
