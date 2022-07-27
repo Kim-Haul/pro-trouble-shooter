@@ -48,273 +48,269 @@ const Home = (props) => {
 
       <Board>
         {Selected == ""
-          ? list
-              .map((v, i) => {
-                return (
-                  <ListBox key={i}>
-                    <ListContainer>
-                      <LisTitle
-                        onClick={() => {
-                          history.push(`detail/${v.postId}`);
-                        }}
-                      >
-                        {v.title}
-                      </LisTitle>
-                      <LisTNic>{v.nickname}</LisTNic>
-                    </ListContainer>
-                    <div>
-                      {v.category == "FE" ? (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-danger"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      ) : (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-warning"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      )}
-
-                      <ButtonB
+          ? list.map((v, i) => {
+              return (
+                <ListBox key={i}>
+                  <ListContainer>
+                    <LisTitle
+                      onClick={() => {
+                        history.push(`detail/${v.postId}`);
+                      }}
+                    >
+                      {v.title}
+                    </LisTitle>
+                    <LisTNic>{v.nickname}</LisTNic>
+                  </ListContainer>
+                  <div>
+                    {v.category == "FE" ? (
+                      <ButtonA
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-danger"
                         style={{ margin: "0 5px 5px" }}
                       >
-                        Comment{" "}
-                        <span className="badge bg-secondary">
-                          {v.commentCount}
-                        </span>
-                      </ButtonB>
-                      {v.solved == true ? (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          해결
-                        </ButtonC>
-                      ) : (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          미해결
-                        </ButtonC>
-                      )}
-                    </div>
-                  </ListBox>
-                );
-              })
-              .reverse()
-          : null}
+                        {v.category}
+                      </ButtonA>
+                    ) : (
+                      <ButtonA
+                        type="button"
+                        className="btn btn-warning"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        {v.category}
+                      </ButtonA>
+                    )}
+
+                    <ButtonB
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ margin: "0 5px 5px" }}
+                    >
+                      Comment{" "}
+                      <span className="badge bg-secondary">
+                        {v.commentCount}
+                      </span>
+                    </ButtonB>
+                    {v.solved == true ? (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        해결
+                      </ButtonC>
+                    ) : (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        미해결
+                      </ButtonC>
+                    )}
+                  </div>
+                </ListBox>
+              );
+            })
+          : // .reverse()
+            null}
 
         {Selected == "Overview"
-          ? list
-              .map((v, i) => {
-                return (
-                  <ListBox key={i}>
-                    <ListContainer>
-                      <LisTitle
-                        onClick={() => {
-                          history.push(`detail/${v.postId}`);
-                        }}
-                      >
-                        {v.title}
-                      </LisTitle>
-                      <LisTNic>{v.nickname}</LisTNic>
-                    </ListContainer>
-                    <div>
-                      {v.category == "FE" ? (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-danger"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      ) : (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-warning"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      )}
-                      <ButtonB
+          ? list.map((v, i) => {
+              return (
+                <ListBox key={i}>
+                  <ListContainer>
+                    <LisTitle
+                      onClick={() => {
+                        history.push(`detail/${v.postId}`);
+                      }}
+                    >
+                      {v.title}
+                    </LisTitle>
+                    <LisTNic>{v.nickname}</LisTNic>
+                  </ListContainer>
+                  <div>
+                    {v.category == "FE" ? (
+                      <ButtonA
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-danger"
                         style={{ margin: "0 5px 5px" }}
                       >
-                        Comment{" "}
-                        <span className="badge bg-secondary">
-                          {v.commentCount}
-                        </span>
-                      </ButtonB>
-                      {v.solved == true ? (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          해결
-                        </ButtonC>
-                      ) : (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          미해결
-                        </ButtonC>
-                      )}
-                    </div>
-                  </ListBox>
-                );
-              })
-              .reverse()
-          : null}
+                        {v.category}
+                      </ButtonA>
+                    ) : (
+                      <ButtonA
+                        type="button"
+                        className="btn btn-warning"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        {v.category}
+                      </ButtonA>
+                    )}
+                    <ButtonB
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ margin: "0 5px 5px" }}
+                    >
+                      Comment{" "}
+                      <span className="badge bg-secondary">
+                        {v.commentCount}
+                      </span>
+                    </ButtonB>
+                    {v.solved == true ? (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        해결
+                      </ButtonC>
+                    ) : (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        미해결
+                      </ButtonC>
+                    )}
+                  </div>
+                </ListBox>
+              );
+            })
+          : // .reverse()
+            null}
 
         {Selected == "FE"
-          ? listFE
-              .map((v, i) => {
-                return (
-                  <ListBox key={i}>
-                    <ListContainer>
-                      <LisTitle
-                        onClick={() => {
-                          history.push(`detail/${v.postId}`);
-                        }}
-                      >
-                        {v.title}
-                      </LisTitle>
-                      <LisTNic>{v.nickname}</LisTNic>
-                    </ListContainer>
-                    <div>
-                      {v.category == "FE" ? (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-danger"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      ) : (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-warning"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      )}
-                      <ButtonB
+          ? listFE.map((v, i) => {
+              return (
+                <ListBox key={i}>
+                  <ListContainer>
+                    <LisTitle
+                      onClick={() => {
+                        history.push(`detail/${v.postId}`);
+                      }}
+                    >
+                      {v.title}
+                    </LisTitle>
+                    <LisTNic>{v.nickname}</LisTNic>
+                  </ListContainer>
+                  <div>
+                    {v.category == "FE" ? (
+                      <ButtonA
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-danger"
                         style={{ margin: "0 5px 5px" }}
                       >
-                        Comment{" "}
-                        <span className="badge bg-secondary">
-                          {v.commentCount}
-                        </span>
-                      </ButtonB>
-                      {v.solved == true ? (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          해결
-                        </ButtonC>
-                      ) : (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          미해결
-                        </ButtonC>
-                      )}
-                    </div>
-                  </ListBox>
-                );
-              })
-              .reverse()
-          : null}
+                        {v.category}
+                      </ButtonA>
+                    ) : (
+                      <ButtonA
+                        type="button"
+                        className="btn btn-warning"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        {v.category}
+                      </ButtonA>
+                    )}
+                    <ButtonB
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ margin: "0 5px 5px" }}
+                    >
+                      Comment{" "}
+                      <span className="badge bg-secondary">
+                        {v.commentCount}
+                      </span>
+                    </ButtonB>
+                    {v.solved == true ? (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        해결
+                      </ButtonC>
+                    ) : (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        미해결
+                      </ButtonC>
+                    )}
+                  </div>
+                </ListBox>
+              );
+            })
+          : // .reverse()
+            null}
 
         {Selected == "BE"
-          ? listBE
-              .map((v, i) => {
-                return (
-                  <ListBox key={i}>
-                    <ListContainer>
-                      <LisTitle
-                        onClick={() => {
-                          history.push(`detail/${v.postId}`);
-                        }}
-                      >
-                        {v.title}
-                      </LisTitle>
-                      <LisTNic>{v.nickname}</LisTNic>
-                    </ListContainer>
-                    <div>
-                      {v.category == "FE" ? (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-danger"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      ) : (
-                        <ButtonA
-                          type="button"
-                          className="btn btn-warning"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          {v.category}
-                        </ButtonA>
-                      )}
-                      <ButtonB
+          ? listBE.map((v, i) => {
+              return (
+                <ListBox key={i}>
+                  <ListContainer>
+                    <LisTitle
+                      onClick={() => {
+                        history.push(`detail/${v.postId}`);
+                      }}
+                    >
+                      {v.title}
+                    </LisTitle>
+                    <LisTNic>{v.nickname}</LisTNic>
+                  </ListContainer>
+                  <div>
+                    {v.category == "FE" ? (
+                      <ButtonA
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-danger"
                         style={{ margin: "0 5px 5px" }}
                       >
-                        Comment{" "}
-                        <span className="badge bg-secondary">
-                          {v.commentCount}
-                        </span>
-                      </ButtonB>
-                      {v.solved == true ? (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          해결
-                        </ButtonC>
-                      ) : (
-                        <ButtonC
-                          type="button"
-                          className="btn btn-success"
-                          style={{ margin: "0 5px 5px" }}
-                        >
-                          미해결
-                        </ButtonC>
-                      )}
-                    </div>
-                  </ListBox>
-                );
-              })
-              .reverse()
-          : null}
+                        {v.category}
+                      </ButtonA>
+                    ) : (
+                      <ButtonA
+                        type="button"
+                        className="btn btn-warning"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        {v.category}
+                      </ButtonA>
+                    )}
+                    <ButtonB
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ margin: "0 5px 5px" }}
+                    >
+                      Comment{" "}
+                      <span className="badge bg-secondary">
+                        {v.commentCount}
+                      </span>
+                    </ButtonB>
+                    {v.solved == true ? (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        해결
+                      </ButtonC>
+                    ) : (
+                      <ButtonC
+                        type="button"
+                        className="btn btn-success"
+                        style={{ margin: "0 5px 5px" }}
+                      >
+                        미해결
+                      </ButtonC>
+                    )}
+                  </div>
+                </ListBox>
+              );
+            })
+          : // .reverse()
+            null}
       </Board>
     </Body>
   );

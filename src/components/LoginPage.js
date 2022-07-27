@@ -28,12 +28,9 @@ function LoginPage(props) {
       email: Email,
       password: Password,
     };
-    try {
-      dispatch(loginFB(body));
-      history.push("/");
-    } catch {
-      window.alert("로그인에 실패했습니다!");
-    }
+
+    dispatch(loginFB(body));
+    history.push("/");
   };
 
   return (
