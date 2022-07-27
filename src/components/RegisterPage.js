@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function RegisterPage(props) {
   const [Email, setEmail] = useState("");
   const [Nickname, setNickname] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
+  const history = useHistory();
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -50,9 +52,10 @@ function RegisterPage(props) {
       };
       // console.log(data);
       const res = await axios.post(`http://54.180.94.133/api/signup`, data);
-      window.alert("회원가입 성공!");
+      window.alert("회원가입에 성공하셨습니다!");
+      history.push("/");
     } catch (err) {
-      console.log("회원가입 실패!");
+      window.alert("회원정보를 다시 확인해주세요!");
     }
   };
 

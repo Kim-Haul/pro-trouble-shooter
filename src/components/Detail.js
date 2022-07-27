@@ -302,7 +302,7 @@ const Posting = (props) => {
                 axiosPostComment(contents.current.value);
                 contents.current.value = "";
                 window.alert("댓글이 작성되었습니다 !");
-                // window.location.reload();
+                window.location.reload();
               } else {
                 window.alert("입력하지 않은 항목이 있습니다.");
               }
@@ -348,7 +348,7 @@ const Posting = (props) => {
                               onClick={() => {
                                 axiosCommentDelete(i);
                                 window.alert("댓글이 삭제되었습니다 !");
-                                // window.location.reload();
+                                window.location.reload();
                               }}
                             />
                           </CommnetFont>
@@ -436,7 +436,7 @@ const Posting = (props) => {
                             onClick={() => {
                               axiosCommentDelete(i);
                               window.alert("댓글이 삭제되었습니다 !");
-                              // window.location.reload();
+                              window.location.reload();
                             }}
                           />
                         </CommnetFont>

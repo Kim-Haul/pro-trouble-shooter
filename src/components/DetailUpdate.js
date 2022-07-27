@@ -84,7 +84,7 @@ const Posting = (props) => {
 
         <div>
           <Select className="form-select" onChange={handleSelect}>
-            <option defaultValue>solved</option>
+            <option defaultValue>해결여부</option>
             <option value="true">해결</option>
             <option value="false">미해결</option>
           </Select>
@@ -122,7 +122,7 @@ const Posting = (props) => {
                 Selected
               );
               history.push(`/detail/${params.idx}`);
-              // window.location.reload();
+              window.location.reload();
             } else {
               window.alert("입력하지 않은 항목이 있습니다.");
             }

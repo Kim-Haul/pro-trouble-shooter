@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginFB } from "../redux/modules/user_reducer";
+import { useHistory } from "react-router-dom";
 
 function LoginPage(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
@@ -26,8 +28,12 @@ function LoginPage(props) {
       email: Email,
       password: Password,
     };
-
-    dispatch(loginFB(body));
+    try {
+      dispatch(loginFB(body));
+      history.push("/");
+    } catch {
+      window.alert("로그인에 실패했습니다!");
+    }
   };
 
   return (
@@ -50,7 +56,7 @@ function LoginPage(props) {
         <input type="password" value={Password} onChange={onPasswordHandler} />
 
         <br />
-        <button>Login</button>
+        <button>로그인</button>
       </form>
     </div>
   );

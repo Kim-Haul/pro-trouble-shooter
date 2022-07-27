@@ -85,8 +85,8 @@ const Posting = (props) => {
               Selected != ""
             ) {
               axiosAdd(title.current.value, contents.current.value, Selected);
-              // history.push("/");
-              // window.location.reload();
+              history.push("/");
+              window.location.reload();
             } else {
               window.alert("입력하지 않은 항목이 있습니다.");
             }
