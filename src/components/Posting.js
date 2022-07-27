@@ -3,20 +3,29 @@ import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
 
 const Posting = (props) => {
+  const accessToken = getCookie();
+  console.log(accessToken);
+
   // 게시글 작성
   const axiosAdd = async (title, contents, Selected) => {
     try {
       let data = {
         title: title,
         category: Selected,
-        contents: contents,
+        content: contents,
       };
 
-      await axios.post("http://localhost:5001/posts", data);
+      const res = await axios.post(`http://54.180.94.133/api/posts`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(res);
     } catch (err) {
-      console.log("포스팅 오류!");
+      console.log(err);
     }
   };
 
@@ -76,8 +85,8 @@ const Posting = (props) => {
               Selected != ""
             ) {
               axiosAdd(title.current.value, contents.current.value, Selected);
-              history.push("/");
-              window.location.reload();
+              // history.push("/");
+              // window.location.reload();
             } else {
               window.alert("입력하지 않은 항목이 있습니다.");
             }

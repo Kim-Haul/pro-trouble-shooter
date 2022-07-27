@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
 
 const LoginBefore = (props) => {
   return (
     <NavButton>
-      <ButtonU>Log-out</ButtonU>
+      <ButtonU
+        onClick={() => {
+          deleteCookie();
+        }}
+      >
+        Log-out
+      </ButtonU>
     </NavButton>
   );
 };

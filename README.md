@@ -3,6 +3,7 @@ $ yarn create react-app pro_trouble_shooting
 $ yarn add redux react-redux
 $ yarn add react-router-dom@5.3.0
 $ yarn add redux-thunk
+$ yarn add react-cookie
 
 $ yarn add styled-components
 $ yarn add @fortawesome/fontawesome-svg-core

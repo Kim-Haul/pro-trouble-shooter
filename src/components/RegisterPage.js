@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { signupUser } from "../_actions/user_action";
-import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 function RegisterPage(props) {
-  const dispatch = useDispatch();
-
   const [Email, setEmail] = useState("");
   const [Nickname, setNickname] = useState("");
   const [Password, setPassword] = useState("");
@@ -37,16 +33,27 @@ function RegisterPage(props) {
     let body = {
       email: Email,
       password: Password,
+      passWordCheck: ConfirmPassword,
       nickname: Nickname,
     };
 
-    dispatch(signupUser(body)).then((response) => {
-      if (response.payload.success) {
-        props.history.push("/api/login");
-      } else {
-        alert("Failed to sign-up");
-      }
-    });
+    SignUpFB(body);
+  };
+
+  const SignUpFB = async (body) => {
+    try {
+      let data = {
+        username: body.email,
+        password: body.password,
+        passwordCheck: body.passWordCheck,
+        nickname: body.nickname,
+      };
+      // console.log(data);
+      const res = await axios.post(`http://54.180.94.133/api/signup`, data);
+      window.alert("회원가입 성공!");
+    } catch (err) {
+      console.log("회원가입 실패!");
+    }
   };
 
   return (
@@ -64,7 +71,7 @@ function RegisterPage(props) {
         onSubmit={onSubmitHandler}
       >
         <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
+        <input type="value" value={Email} onChange={onEmailHandler} />
 
         <label>Nickname</label>
         <input type="text" value={Nickname} onChange={onNicknameHandler} />
@@ -80,10 +87,10 @@ function RegisterPage(props) {
         />
 
         <br />
-        <button>Sign-up</button>
+        <button>회원가입</button>
       </form>
     </div>
   );
 }
 
-export default withRouter(RegisterPage);
+export default RegisterPage;

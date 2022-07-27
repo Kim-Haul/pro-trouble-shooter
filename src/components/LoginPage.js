@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../_actions/user_action";
-import { withRouter } from "react-router-dom";
+import { loginFB } from "../redux/modules/user_reducer";
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -28,13 +27,7 @@ function LoginPage(props) {
       password: Password,
     };
 
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.history.push("/");
-      } else {
-        alert("Error");
-      }
-    });
+    dispatch(loginFB(body));
   };
 
   return (
@@ -52,7 +45,7 @@ function LoginPage(props) {
         onSubmit={onSubmitHandler}
       >
         <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
+        <input type="text" value={Email} onChange={onEmailHandler} />
         <label>Password</label>
         <input type="password" value={Password} onChange={onPasswordHandler} />
 
@@ -63,4 +56,4 @@ function LoginPage(props) {
   );
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;
