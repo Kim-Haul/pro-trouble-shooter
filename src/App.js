@@ -14,11 +14,22 @@ import RegisterPage from "./components/RegisterPage";
 
 import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { setCookie, getCookie, deleteCookie } from "./shard/Cookie";
+// import { useSelector } from "react-redux/es/exports";
 
 function App() {
   const history = useHistory();
+  // console.log(getCookie().substr(6));
 
+  // const is_logined = useSelector((state) => state.user_reducer.isAuth);
   const [login, setLogin] = useState(false);
+
+  React.useEffect(() => {
+    const is_logined = getCookie();
+    if (is_logined) {
+      setLogin(true);
+    }
+  }, []);
 
   return (
     <div className="App">

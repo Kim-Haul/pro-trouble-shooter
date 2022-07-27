@@ -9,14 +9,17 @@ import { Provider } from "react-redux";
 import store from "./redux/configStore";
 
 import ScrollToTop from "./components/ScrollToTop";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ScrollToTop />
-      <App />
-    </BrowserRouter>
+    <CookiesProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <App />
+      </BrowserRouter>
+    </CookiesProvider>
   </Provider>
 );
 

@@ -9,9 +9,9 @@ const initialState = {
 };
 
 // Action Creators
-export function loadPost(postIist) {
-  console.log("단어 로드 액션을 실행할거야!");
-  return { type: LOAD, postIist };
+export function loadPost(postList) {
+  console.log("게시글 로드 액션을 실행할거야!");
+  return { type: LOAD, postList };
 }
 
 // Middleware
@@ -19,7 +19,7 @@ export const loadPostFB = () => {
   return async function (dispatch) {
     let post_list = [];
     try {
-      const res = await axios.get("http://localhost:5001/posts");
+      const res = await axios.get("http://54.180.94.133/api/posts");
       res.data.forEach((doc) => {
         post_list.push({ ...doc });
       });
@@ -38,7 +38,7 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "loadPostStore/LOAD": {
       console.log("값을 로드할거야 !");
-      return { list: action.postIist };
+      return { list: action.postList };
     }
 
     default:

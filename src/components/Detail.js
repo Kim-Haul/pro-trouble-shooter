@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { isStyledComponent } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
 
 const Posting = (props) => {
   const history = useHistory();
   const params = useParams();
+  const accessToken = getCookie();
 
-  // 게시글 목록 불러오기
+  // 게시글 목록, 댓글 불러오기
   const [list, setList] = useState({});
   const axiosLoad = async () => {
     try {
-      const res = await axios.get(`http://localhost:5001/posts/${params.idx}`);
+      const res = await axios.get(
+        `http://54.180.94.133/api/posts/${params.idx}`
+      );
+      // const res = await axios.get(`http://localhost:5001/posts/${params.idx}`);
 
       setList(res.data);
     } catch (err) {
@@ -27,8 +32,14 @@ const Posting = (props) => {
   //  게시글 삭제
   const axiosDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5001/posts/${params.idx}`);
+      await axios.delete(`http://54.180.94.133/api/posts/${params.idx}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // await axios.delete(`http://localhost:5001/posts/${params.idx}`);
     } catch (err) {
+      console.log(err);
       console.log("게시글 삭제하는데 에러");
     }
   };
@@ -46,21 +57,69 @@ const Posting = (props) => {
         content: content,
       };
       await axios.post(
-        `http://localhost:5001/posts/${params.idx}/comments`,
-        data
+        `http://54.180.94.133/api/posts/${params.idx}/comments`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
+      // await axios.post(
+      //   `http://localhost:5001/posts/${params.idx}/comments`,
+      //   data
+      // );
     } catch (err) {
-      console.log("댓글 작성하는데 에러");
+      console.log(err);
     }
   };
+  <div>
+    <button
+      type="button"
+      className="btn btn-success"
+      style={{
+        position: "absolute",
+        bottom: "10px",
+        right: "140px",
+        width: "100px",
+      }}
+      onClick={() => {
+        history.push(`/detailupdate/${params.idx}`);
+      }}
+    >
+      수정
+    </button>
+    <button
+      type="button"
+      className="btn btn-danger"
+      style={{
+        position: "absolute",
+        bottom: "10px",
+        right: "30px",
+        width: "100px",
+      }}
+      onClick={() => {
+        axiosDelete();
+        history.push("/");
+      }}
+    >
+      삭제
+    </button>
+  </div>;
 
   // 댓글삭제
   const axiosCommentDelete = async (i) => {
     try {
-      console.log(i);
-      console.log(list.comments[i]);
+      // console.log(i);
+      // console.log("댓글 정보확인", list.comments[i]);
       const num = list.comments[i].id;
-      await axios.delete(`http://localhost:5001/comments/${num}`);
+      console.log(num);
+      await axios.delete(`http://54.180.94.133/api/comments/${num}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // await axios.delete(`http://localhost:5001/comments/${num}`);
     } catch (err) {
       console.log("댓글 삭제하는데 에러");
     }
@@ -85,7 +144,12 @@ const Posting = (props) => {
       const num = list.comments[i].id;
       // console.log(i);
       // console.log(list.comments[i].id);
-      await axios.put(`http://localhost:5001/comments/${num}`, data);
+      await axios.put(`http://54.180.94.133/api/comments/${num}`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // await axios.put(`http://localhost:5001/comments/${num}`, data);
     } catch (err) {
       console.log("댓글 수정하는데 에러");
     }
@@ -99,13 +163,26 @@ const Posting = (props) => {
       solved: true,
     };
     try {
-      await axios.put(`http://localhost:5001/posts/${params.idx}`, data);
+      await axios.put(`http://54.180.94.133/api/posts/${params.idx}`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // await axios.put(`http://localhost:5001/posts/${params.idx}`, data);
     } catch (err) {
       console.log("문제해결 체크 오류!");
     }
   };
 
-  console.log(solved);
+  // console.log(solved);
+
+  const [login, setLogin] = useState(false);
+  React.useEffect(() => {
+    const is_logined = getCookie();
+    if (is_logined) {
+      setLogin(true);
+    }
+  }, []);
 
   return (
     <PostingContainer>
@@ -145,39 +222,43 @@ const Posting = (props) => {
         </ContentNav>
 
         <Line />
-        <ContentDesc> {list.contents}</ContentDesc>
+        <ContentDesc> {list.content}</ContentDesc>
 
-        <button
-          type="button"
-          className="btn btn-success"
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "140px",
-            width: "100px",
-          }}
-          onClick={() => {
-            history.push(`/detailupdate/${params.idx}`);
-          }}
-        >
-          수정
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "30px",
-            width: "100px",
-          }}
-          onClick={() => {
-            axiosDelete();
-            history.push("/");
-          }}
-        >
-          삭제
-        </button>
+        {login ? (
+          <div>
+            <button
+              type="button"
+              className="btn btn-success"
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "140px",
+                width: "100px",
+              }}
+              onClick={() => {
+                history.push(`/detailupdate/${params.idx}`);
+              }}
+            >
+              수정
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "30px",
+                width: "100px",
+              }}
+              onClick={() => {
+                axiosDelete();
+                // history.push("/");
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        ) : null}
       </PostingBox>
 
       <button
@@ -246,30 +327,32 @@ const Posting = (props) => {
                           {v.nickname}
                         </div>
                         <div>{v.content}</div>
-                        <CommnetFont>
-                          <FontAwesomeIcon
-                            icon={faPenToSquare}
-                            style={{
-                              margin: "5px",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              changeCommentView1(i);
-                            }}
-                          />
-                          <FontAwesomeIcon
-                            icon={faRectangleXmark}
-                            style={{
-                              margin: "5px",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              axiosCommentDelete(i);
-                              window.alert("댓글이 삭제되었습니다 !");
-                              window.location.reload();
-                            }}
-                          />
-                        </CommnetFont>
+                        {login ? (
+                          <CommnetFont>
+                            <FontAwesomeIcon
+                              icon={faPenToSquare}
+                              style={{
+                                margin: "5px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                changeCommentView1(i);
+                              }}
+                            />
+                            <FontAwesomeIcon
+                              icon={faRectangleXmark}
+                              style={{
+                                margin: "5px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                axiosCommentDelete(i);
+                                window.alert("댓글이 삭제되었습니다 !");
+                                window.location.reload();
+                              }}
+                            />
+                          </CommnetFont>
+                        ) : null}
                       </Comment>
                       <div
                         style={{
@@ -332,30 +415,32 @@ const Posting = (props) => {
                         {v.nickname}
                       </div>
                       <div>{v.content}</div>
-                      <CommnetFont>
-                        <FontAwesomeIcon
-                          icon={faPenToSquare}
-                          style={{
-                            margin: "5px",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            changeCommentView1(i);
-                          }}
-                        />
-                        <FontAwesomeIcon
-                          icon={faRectangleXmark}
-                          style={{
-                            margin: "5px",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            axiosCommentDelete(i);
-                            window.alert("댓글이 삭제되었습니다 !");
-                            window.location.reload();
-                          }}
-                        />
-                      </CommnetFont>
+                      {login ? (
+                        <CommnetFont>
+                          <FontAwesomeIcon
+                            icon={faPenToSquare}
+                            style={{
+                              margin: "5px",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              changeCommentView1(i);
+                            }}
+                          />
+                          <FontAwesomeIcon
+                            icon={faRectangleXmark}
+                            style={{
+                              margin: "5px",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              axiosCommentDelete(i);
+                              window.alert("댓글이 삭제되었습니다 !");
+                              window.location.reload();
+                            }}
+                          />
+                        </CommnetFont>
+                      ) : null}
                     </Comment>
                   )}
                 </div>

@@ -55,7 +55,7 @@ const Home = (props) => {
                     <ListContainer>
                       <LisTitle
                         onClick={() => {
-                          history.push(`detail/${v.id}`);
+                          history.push(`detail/${v.postId}`);
                         }}
                       >
                         {v.title}
@@ -123,7 +123,7 @@ const Home = (props) => {
                     <ListContainer>
                       <LisTitle
                         onClick={() => {
-                          history.push(`detail/${v.id}`);
+                          history.push(`detail/${v.postId}`);
                         }}
                       >
                         {v.title}
@@ -190,7 +190,7 @@ const Home = (props) => {
                     <ListContainer>
                       <LisTitle
                         onClick={() => {
-                          history.push(`detail/${v.id}`);
+                          history.push(`detail/${v.postId}`);
                         }}
                       >
                         {v.title}
@@ -257,7 +257,7 @@ const Home = (props) => {
                     <ListContainer>
                       <LisTitle
                         onClick={() => {
-                          history.push(`detail/${v.id}`);
+                          history.push(`detail/${v.postId}`);
                         }}
                       >
                         {v.title}

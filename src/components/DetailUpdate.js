@@ -3,10 +3,12 @@ import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
 
 const Posting = (props) => {
   const params = useParams();
   const history = useHistory();
+  const accessToken = getCookie();
 
   const title = React.useRef(null);
   const contents = React.useRef(null);
@@ -14,7 +16,7 @@ const Posting = (props) => {
   // const [loading, setLoading] = useState(false);
   const [list, setList] = useState({});
   const axiosLoad = async () => {
-    const res = await axios.get(`http://localhost:5001/posts/${params.idx}`);
+    const res = await axios.get(`http://54.180.94.133/api/posts/${params.idx}`);
     // console.log(res.data);
     setList(res.data);
   };
@@ -37,12 +39,21 @@ const Posting = (props) => {
   };
 
   const axiosUpdate = async (title, contents) => {
-    let data = {
-      title: title,
-      category: Selected,
-      contents: contents,
-    };
-    await axios.put(`http://localhost:5001/posts/${params.idx}`, data);
+    try {
+      let data = {
+        title: title,
+        solved: Selected,
+        content: contents,
+      };
+
+      await axios.put(`http://54.180.94.133/api/posts/${params.idx}`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // 동기, 비동기 오류 고생
@@ -73,9 +84,9 @@ const Posting = (props) => {
 
         <div>
           <Select className="form-select" onChange={handleSelect}>
-            <option defaultValue>Category</option>
-            <option value="FE">FE</option>
-            <option value="BE">BE</option>
+            <option defaultValue>해결여부</option>
+            <option value="true">해결</option>
+            <option value="false">미해결</option>
           </Select>
         </div>
 
@@ -86,7 +97,7 @@ const Posting = (props) => {
             placeholder="Solving problem"
             rows="12"
             ref={contents}
-            defaultValue={list.contents}
+            defaultValue={list.content}
           />
         </div>
 
@@ -129,12 +140,10 @@ export default Posting;
 const PostingContainer = styled.div`
   width: 100%;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-
 const PostingBox = styled.div`
   margin-top: 200px;
   width: 50%;

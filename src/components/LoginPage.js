@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../_actions/user_action";
-import { withRouter } from "react-router-dom";
+import { loginFB } from "../redux/modules/user_reducer";
+import { useHistory } from "react-router-dom";
 
 function LoginPage(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
@@ -27,14 +28,12 @@ function LoginPage(props) {
       email: Email,
       password: Password,
     };
-
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.history.push("/");
-      } else {
-        alert("Error");
-      }
-    });
+    try {
+      dispatch(loginFB(body));
+      history.push("/");
+    } catch {
+      window.alert("로그인에 실패했습니다!");
+    }
   };
 
   return (
@@ -52,15 +51,15 @@ function LoginPage(props) {
         onSubmit={onSubmitHandler}
       >
         <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
+        <input type="text" value={Email} onChange={onEmailHandler} />
         <label>Password</label>
         <input type="password" value={Password} onChange={onPasswordHandler} />
 
         <br />
-        <button>Login</button>
+        <button>로그인</button>
       </form>
     </div>
   );
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;
