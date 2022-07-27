@@ -302,18 +302,22 @@ const Posting = (props) => {
             </>
           ) : (
             <>
-              <button
-                type="button"
-                className="btn btn-danger"
-                style={{
-                  marginTop: "20px",
-                  height: "60px",
-                  width: "500px",
-                  fontSize: "20px",
-                }}
-              >
-                Already solved this problem !
-              </button>
+              {is_load ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    style={{
+                      marginTop: "20px",
+                      height: "60px",
+                      width: "500px",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Already solved this problem !
+                  </button>
+                </>
+              ) : null}
             </>
           )}
         </>
