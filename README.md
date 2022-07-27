@@ -4,6 +4,7 @@ $ yarn add redux react-redux
 $ yarn add react-router-dom@5.3.0
 $ yarn add redux-thunk
 $ yarn add react-cookie
+$ yarn add jwt-decode
 
 $ yarn add styled-components
 $ yarn add @fortawesome/fontawesome-svg-core
