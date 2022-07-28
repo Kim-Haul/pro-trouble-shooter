@@ -1,25 +1,24 @@
 # pro-trouble-shooter
 
-개발 중에 경험한 에러가 있으신가요?
+개발 중에 경험한 에러가 있으신가요?<br/>
 `pro-trouble-shooter`에 기록하고 정보를 공유하세요!
 
 ## 주요 기능
 
-- 로그인 전 메인화면 UI 구상
-  ![img](./public/readme_md_1.png)
+`기본 메인 홈페이지 UI`
+![img](./public/readme_md_4.png)
 
-- 로그인 후 우측하단 포스트 버튼 생성
-  ![img](./public/readme_md_4.png)
-
-- 카테고리별 게시글 목록 정렬
-  ![img](./public/readme_md_2.png)
-
-- 문제 해결 여부 체크 박스 추가
-- 등록된 유저에 한해 후 댓글 작성 기능 오픈
-  ![img](./public/readme_md_5.png)
-
-- 본인 게시글 및 댓글 수정/삭제 기능 추가
-  ![img](./public/readme_md_6.png)
+`카테고리별 게시글 목록 정렬`
+![img](./public/readme_md_2.png)
+<br/>
+<br/>
+`문제 해결 여부 체크 버튼 추가`<br/>
+`로그인한 사용자에 한해 댓글 기능 오픈`
+![img](./public/readme_md_5.png)
+<br/>
+<br/>
+`본인 게시글 및 댓글 수정/삭제 기능 추가`
+![img](./public/readme_md_6.png)
 
 ## Specs
 
