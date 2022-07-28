@@ -238,7 +238,12 @@ const Posting = (props) => {
             </ContentNav>
 
             <Line />
-            <ContentDesc> {list.content}</ContentDesc>
+            <ContentDesc
+              style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}
+            >
+              {" "}
+              {list.content}
+            </ContentDesc>
 
             {decoded.NICK_NAME == list.nickname ? (
               <div>
@@ -447,6 +452,7 @@ const Posting = (props) => {
                           placeholder="Comment"
                           rows="4"
                           ref={contentsUpdate}
+                          defaultValue={v.content}
                         ></Textarea>
                         <div
                           style={{

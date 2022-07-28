@@ -43,7 +43,7 @@ function App() {
                   window.location.reload();
                 }}
               >
-                Pro Trouble <span style={{ color: "red" }}>S</span>hooter
+                Project <span style={{ color: "red" }}>T</span>rouble Shooting
               </Title>
               <LoginBefore />
             </Nav>
@@ -55,7 +55,7 @@ function App() {
                   window.location.reload();
                 }}
               >
-                Pro Trouble <span style={{ color: "red" }}>S</span>hooter
+                Project <span style={{ color: "red" }}>T</span>rouble Shooting
               </Title>
               <LoginAfter />
             </Nav>
