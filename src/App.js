@@ -14,7 +14,7 @@ import RegisterPage from "./components/RegisterPage";
 
 import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "./shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "./shared/Cookie";
 // import { useSelector } from "react-redux/es/exports";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
                   window.location.reload();
                 }}
               >
-                Project <span style={{ color: "red" }}>T</span>rouble Shooting
+                Pro <span style={{ color: "red" }}>T</span>rouble Shooter
               </Title>
               <LoginBefore />
             </Nav>
@@ -55,7 +55,7 @@ function App() {
                   window.location.reload();
                 }}
               >
-                Project <span style={{ color: "red" }}>T</span>rouble Shooting
+                Pro <span style={{ color: "red" }}>T</span>rouble Shooter
               </Title>
               <LoginAfter />
             </Nav>

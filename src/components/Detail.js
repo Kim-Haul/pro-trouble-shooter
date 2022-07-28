@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 import jwtDecode from "jwt-decode";
 
 const Posting = (props) => {

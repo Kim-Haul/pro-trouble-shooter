@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 
 const Posting = (props) => {
   const params = useParams();
