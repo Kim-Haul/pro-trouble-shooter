@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 import jwtDecode from "jwt-decode";
 
 const Posting = (props) => {
@@ -238,7 +238,12 @@ const Posting = (props) => {
             </ContentNav>
 
             <Line />
-            <ContentDesc> {list.content}</ContentDesc>
+            <ContentDesc
+              style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}
+            >
+              {" "}
+              {list.content}
+            </ContentDesc>
 
             {decoded.NICK_NAME == list.nickname ? (
               <div>
@@ -447,6 +452,7 @@ const Posting = (props) => {
                           placeholder="Comment"
                           rows="4"
                           ref={contentsUpdate}
+                          defaultValue={v.content}
                         ></Textarea>
                         <div
                           style={{

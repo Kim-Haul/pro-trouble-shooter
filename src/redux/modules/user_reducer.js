@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie, deleteCookie } from "../../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 // Actions
 const LOAD = "user_reducer/LOAD";

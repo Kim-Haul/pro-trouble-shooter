@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 import { useHistory } from "react-router-dom";
 
 const LoginBefore = (props) => {

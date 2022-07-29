@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setCookie, getCookie, deleteCookie } from "../shard/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookie";
 
 const Posting = (props) => {
   const params = useParams();
@@ -33,16 +33,16 @@ const Posting = (props) => {
     axiosLoad();
   }, []);
 
-  const [Selected, setSelected] = useState("");
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
+  // const [Selected, setSelected] = useState("");
+  // const handleSelect = (e) => {
+  //   setSelected(e.target.value);
+  // };
 
   const axiosUpdate = async (title, contents) => {
     try {
       let data = {
         title: title,
-        solved: Selected,
+        // solved: Selected,
         content: contents,
       };
 
@@ -82,20 +82,20 @@ const Posting = (props) => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <Select className="form-select" onChange={handleSelect}>
             <option defaultValue>해결여부</option>
             <option value="true">해결</option>
             <option value="false">미해결</option>
           </Select>
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <Textarea
             className="form-control"
             id="exampleFormControlTextarea1"
             placeholder="Solving problem"
-            rows="12"
+            rows="15"
             ref={contents}
             defaultValue={list.content}
           />
@@ -113,13 +113,13 @@ const Posting = (props) => {
           onClick={() => {
             if (
               title.current.value != "" &&
-              contents.current.value != "" &&
-              Selected != ""
+              contents.current.value != ""
+              // && Selected != ""
             ) {
               axiosUpdate(
                 title.current.value,
-                contents.current.value,
-                Selected
+                contents.current.value
+                // Selected
               );
               history.push(`/detail/${params.idx}`);
               window.location.reload();
