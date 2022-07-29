@@ -6,6 +6,9 @@
 ## 주요 기능
 
 ![img](./public/readme_md_4.png)
+
+<br/>
+
 ![img](./public/readme_md_6.png)
 
 - 카테고리별 게시글 목록 정렬
