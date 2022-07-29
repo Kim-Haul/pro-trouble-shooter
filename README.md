@@ -7,7 +7,7 @@
 
 ![img](./public/readme_md_4.png)
 
-<br/>
+---
 
 ![img](./public/readme_md_6.png)
 
